@@ -71,7 +71,6 @@ public class ItemCollectionServlet extends HttpServlet {
 
 			try {
 				Integer memNo = new Integer(req.getParameter("memNo"));
-//				System.out.println(memNo);
 
 				ItemCollectionService itemCollectionSvc = new ItemCollectionService();
 				ItemCollectionVO itemCollectionVO = itemCollectionSvc.findOneByMemNo(memNo);
@@ -130,8 +129,6 @@ public class ItemCollectionServlet extends HttpServlet {
 				ItemCollectionVO itemCollectionVO = new ItemCollectionVO();
 				itemCollectionVO.setMemNo(memNo);
 				itemCollectionVO.setItemNo(itemNo);
-				System.out.println("從update_itemCollection_input中取出的memNo為" + itemNo);
-				System.out.println("從update_itemCollection_input中取出的memNo為" + memNo);
 				/*************************** 2.開始修改資料 ****************************************/
 				ItemCollectionService itemCollectionSvc = new ItemCollectionService();
 				itemCollectionVO = itemCollectionSvc.updateCollection(memNo, itemNo);
@@ -190,10 +187,6 @@ public class ItemCollectionServlet extends HttpServlet {
 				itemCollectionVO.setMemNo(memNo);
 				itemCollectionVO.setItemNo(itemNo);
 
-				System.out.println("取得的memNo為" + memNo);
-				System.out.println("取得的itemNo為" + itemNo);
-				System.out.println("以上為line186-187");
-
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("itemCollectionVO", itemCollectionVO);
 					String url = "/backend/itemCollection/addItemCollection.jsp";
@@ -229,9 +222,7 @@ public class ItemCollectionServlet extends HttpServlet {
 			try {
 				/*************************** 1.接收請求參數 ***************************************/
 				Integer itemNo = new Integer(req.getParameter("itemNo"));
-				System.out.println(itemNo);
 				Integer memNo = new Integer(req.getParameter("memNo"));
-				System.out.println(memNo);
 				/*************************** 2.開始刪除資料 ***************************************/
 				ItemCollectionService ItemCollectionSvc = new ItemCollectionService();
 				ItemCollectionSvc.deleteCollection(itemNo, memNo);
@@ -258,15 +249,12 @@ public class ItemCollectionServlet extends HttpServlet {
 			try {
 
 				Integer memNo = new Integer(req.getParameter("memNo"));
-				System.out.println(memNo);
 
 				Integer itemNo = new Integer(req.getParameter("itemNo"));
-				System.out.println(itemNo);
 
 				ItemCollectionService itemCollectionSvc = new ItemCollectionService();
 
 				int collect = itemCollectionSvc.getcount(itemNo, memNo);
-//				System.out.println("目前的為" + collect);
 
 				if (collect == 0) {
 					ItemCollectionVO itemCollectionVO = new ItemCollectionVO();
@@ -274,14 +262,12 @@ public class ItemCollectionServlet extends HttpServlet {
 					itemCollectionVO.setItemNo(itemNo);
 					itemCollectionVO = itemCollectionSvc.addCollection(memNo, itemNo);
 					itemCollectionSvc.getcount(itemNo, memNo);
-//				System.out.println("點擊之後新增為" + collect);
 				}
 
 				else if (collect == 1) {
 					ItemCollectionService ItemCollectionSvc = new ItemCollectionService();
 					ItemCollectionSvc.deleteCollection(itemNo, memNo);
 					itemCollectionSvc.getcount(itemNo, memNo);
-//					System.out.println("點擊之後刪除為" + collect);
 				}
 
 				String url = "/frontend/EShop.jsp";
@@ -334,15 +320,12 @@ public class ItemCollectionServlet extends HttpServlet {
 			try {
 
 				Integer memNo = new Integer(req.getParameter("memNo"));
-				System.out.println(memNo);
 
 				Integer itemNo = new Integer(req.getParameter("itemNo"));
-				System.out.println(itemNo);
 
 				ItemCollectionService itemCollectionSvc = new ItemCollectionService();
 
 				int collect = itemCollectionSvc.getcount(itemNo, memNo);
-//						System.out.println("目前的為" + collect);
 
 				if (collect == 0) {
 					ItemCollectionVO itemCollectionVO = new ItemCollectionVO();
@@ -350,14 +333,12 @@ public class ItemCollectionServlet extends HttpServlet {
 					itemCollectionVO.setItemNo(itemNo);
 					itemCollectionVO = itemCollectionSvc.addCollection(memNo, itemNo);
 					itemCollectionSvc.getcount(itemNo, memNo);
-//						System.out.println("點擊之後新增為" + collect);
 				}
 
 				else if (collect == 1) {
 					ItemCollectionService ItemCollectionSvc = new ItemCollectionService();
 					ItemCollectionSvc.deleteCollection(itemNo, memNo);
 					itemCollectionSvc.getcount(itemNo, memNo);
-//							System.out.println("點擊之後刪除為" + collect);
 				}
 
 				String url = "/frontend/listByPhone.jsp";
@@ -411,15 +392,12 @@ public class ItemCollectionServlet extends HttpServlet {
 			try {
 
 				Integer memNo = new Integer(req.getParameter("memNo"));
-				System.out.println(memNo);
 
 				Integer itemNo = new Integer(req.getParameter("itemNo"));
-				System.out.println(itemNo);
 
 				ItemCollectionService itemCollectionSvc = new ItemCollectionService();
 
 				int collect = itemCollectionSvc.getcount(itemNo, memNo);
-//						System.out.println("目前的為" + collect);
 
 				if (collect == 0) {
 					ItemCollectionVO itemCollectionVO = new ItemCollectionVO();
@@ -427,7 +405,6 @@ public class ItemCollectionServlet extends HttpServlet {
 					itemCollectionVO.setItemNo(itemNo);
 					itemCollectionVO = itemCollectionSvc.addCollection(memNo, itemNo);
 					itemCollectionSvc.getcount(itemNo, memNo);
-//						System.out.println("點擊之後新增為" + collect);
 				}
 
 				else if (collect == 1) {
@@ -488,15 +465,12 @@ public class ItemCollectionServlet extends HttpServlet {
 			try {
 
 				Integer memNo = new Integer(req.getParameter("memNo"));
-				System.out.println(memNo);
 
 				Integer itemNo = new Integer(req.getParameter("itemNo"));
-				System.out.println(itemNo);
 
 				ItemCollectionService itemCollectionSvc = new ItemCollectionService();
 
 				int collect = itemCollectionSvc.getcount(itemNo, memNo);
-//						System.out.println("目前的為" + collect);
 
 				if (collect == 0) {
 					ItemCollectionVO itemCollectionVO = new ItemCollectionVO();
@@ -504,14 +478,12 @@ public class ItemCollectionServlet extends HttpServlet {
 					itemCollectionVO.setItemNo(itemNo);
 					itemCollectionVO = itemCollectionSvc.addCollection(memNo, itemNo);
 					itemCollectionSvc.getcount(itemNo, memNo);
-//						System.out.println("點擊之後新增為" + collect);
 				}
 
 				else if (collect == 1) {
 					ItemCollectionService ItemCollectionSvc = new ItemCollectionService();
 					ItemCollectionSvc.deleteCollection(itemNo, memNo);
 					itemCollectionSvc.getcount(itemNo, memNo);
-//							System.out.println("點擊之後刪除為" + collect);
 				}
 
 				String url = "/frontend/listByCamera.jsp";
@@ -565,15 +537,12 @@ public class ItemCollectionServlet extends HttpServlet {
 			try {
 
 				Integer memNo = new Integer(req.getParameter("memNo"));
-				System.out.println(memNo);
 
 				Integer itemNo = new Integer(req.getParameter("itemNo"));
-				System.out.println(itemNo);
 
 				ItemCollectionService itemCollectionSvc = new ItemCollectionService();
 
 				int collect = itemCollectionSvc.getcount(itemNo, memNo);
-//						System.out.println("目前的為" + collect);
 
 				if (collect == 0) {
 					ItemCollectionVO itemCollectionVO = new ItemCollectionVO();
@@ -581,14 +550,12 @@ public class ItemCollectionServlet extends HttpServlet {
 					itemCollectionVO.setItemNo(itemNo);
 					itemCollectionVO = itemCollectionSvc.addCollection(memNo, itemNo);
 					itemCollectionSvc.getcount(itemNo, memNo);
-//						System.out.println("點擊之後新增為" + collect);
 				}
 
 				else if (collect == 1) {
 					ItemCollectionService ItemCollectionSvc = new ItemCollectionService();
 					ItemCollectionSvc.deleteCollection(itemNo, memNo);
 					itemCollectionSvc.getcount(itemNo, memNo);
-//							System.out.println("點擊之後刪除為" + collect);
 				}
 
 				String url = "/frontend/listByWatch.jsp";
@@ -648,7 +615,6 @@ public class ItemCollectionServlet extends HttpServlet {
 				ItemCollectionService itemCollectionSvc = new ItemCollectionService();
 
 				int collect = itemCollectionSvc.getcount(itemNo, memNo);
-//						System.out.println("目前的為" + collect);
 
 				if (collect == 0) {
 					ItemCollectionVO itemCollectionVO = new ItemCollectionVO();
@@ -656,14 +622,12 @@ public class ItemCollectionServlet extends HttpServlet {
 					itemCollectionVO.setItemNo(itemNo);
 					itemCollectionVO = itemCollectionSvc.addCollection(memNo, itemNo);
 					itemCollectionSvc.getcount(itemNo, memNo);
-//						System.out.println("點擊之後新增為" + collect);
 				}
 
 				else if (collect == 1) {
 					ItemCollectionService ItemCollectionSvc = new ItemCollectionService();
 					ItemCollectionSvc.deleteCollection(itemNo, memNo);
 					itemCollectionSvc.getcount(itemNo, memNo);
-//							System.out.println("點擊之後刪除為" + collect);
 				}
 
 				String url = "/frontend/listByOthers.jsp";
@@ -700,21 +664,20 @@ public class ItemCollectionServlet extends HttpServlet {
 					itemCollectionVO = itemCollectionSvc.addCollection(memNo, itemNo);
 					itemCollectionSvc.getcount(itemNo, memNo);
 					Map<String, String[]> map = req.getParameterMap();
-					
+
 					ItemService itemSvc = new ItemService();
 					List<ItemVO> list = itemSvc.getAll(map);
 					req.setAttribute("listItem_ByCompositeQuery", list);
 					String url = "/frontend/EShop.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllFavorite.jsp
 					successView.forward(req, res);
-					
+
 				} else if (collect == 1) {
 					ItemCollectionService ItemCollectionSvc = new ItemCollectionService();
 					ItemCollectionSvc.deleteCollection(itemNo, memNo);
 					itemCollectionSvc.getcount(itemNo, memNo);
-//							System.out.println("點擊之後刪除為" + collect);
 					Map<String, String[]> map = req.getParameterMap();
-					
+
 					ItemService itemSvc = new ItemService();
 					List<ItemVO> list = itemSvc.getAll(map);
 					req.setAttribute("listItem_ByCompositeQuery", list);
@@ -722,12 +685,7 @@ public class ItemCollectionServlet extends HttpServlet {
 					RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllFavorite.jsp
 					successView.forward(req, res);
 				}
-				
-				
-				
-				
-				
-				
+
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/frontend/listItem_ByCompositeQuery.jsp");

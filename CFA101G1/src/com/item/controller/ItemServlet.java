@@ -61,7 +61,6 @@ public class ItemServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
-				System.out.println(itemNo);
 				/*************************** 2.開始查詢資料 *****************************************/
 				ItemService itemSvc = new ItemService();
 				ItemVO itemVO = itemSvc.getOneItem(itemNo);
@@ -130,19 +129,15 @@ public class ItemServlet extends HttpServlet {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 
 				Integer itemNo = new Integer(req.getParameter("itemNo").trim());
-				System.out.println(itemNo);
 
 				Integer kindNo = new Integer(req.getParameter("kindNo").trim());
-				System.out.println(kindNo);
 				String itemName = req.getParameter("itemName");
 				String itemNameReg = "^[(\\-,./)(><*\\)\\s\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,40}$";
 				if (itemName == null || itemName.trim().length() == 0) {
 					errorMsgs.add("商品名稱: 請勿空白");
-					}
-				 else if (!itemName.trim().matches(itemNameReg)) { // 以下練習正則(規)表示式(regular-expression)
+				} else if (!itemName.trim().matches(itemNameReg)) { // 以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("商品名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到40之間");
 				}
-				System.out.println(itemName);
 
 				Integer itemPrice = null;
 
@@ -158,7 +153,6 @@ public class ItemServlet extends HttpServlet {
 				} else if (itemPrice > 99999) {
 					errorMsgs.add("價格請填5位數");
 				}
-				System.out.println(itemPrice);
 				Integer itemState = null;
 
 				try {
@@ -170,7 +164,6 @@ public class ItemServlet extends HttpServlet {
 				if (itemState > 1 || itemState < 0) {
 					errorMsgs.add("上架狀態為0或1");
 				}
-				System.out.println(itemState);
 				java.sql.Timestamp launchedTime = null;
 
 				try {
@@ -180,19 +173,14 @@ public class ItemServlet extends HttpServlet {
 					launchedTime = new java.sql.Timestamp(System.currentTimeMillis());
 					errorMsgs.add("請輸入上架時間!");
 				}
-				System.out.println(launchedTime);
 				java.sql.Timestamp soldTime = null;
 
 				try {
 					soldTime = java.sql.Timestamp.valueOf(req.getParameter("soldTime"));
 
 				} catch (IllegalArgumentException STe) {
-//					soldTime = new java.sql.Timestamp(System.currentTimeMillis()+60000);
-//					errorMsgs.add("請輸入下架時間");
 				}
-				System.out.println(soldTime);
-				
-				
+
 				Double warrantyDate = null;
 
 				try {
@@ -204,18 +192,16 @@ public class ItemServlet extends HttpServlet {
 				if (warrantyDate < 0) {
 					errorMsgs.add("保固年限不得低於0");
 				}
-				System.out.println(warrantyDate);
 				String itemProdDescription = req.getParameter("itemProdDescription");
 				if (itemProdDescription == null || itemProdDescription.trim().length() == 0) {
 					errorMsgs.add("商品描述: 請勿空白");
-					}
+				}
 //				String itemProdDescriptionReg = "^[(\\\\-,./)(><*\\\\)\\\\s\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{1,1000}$";
 //				if (itemProdDescription == null || itemProdDescription.trim().length() == 0) {
 //						errorMsgs.add("商品描述: 請勿空白");
 //				} else if (!itemProdDescription.trim().matches(itemProdDescriptionReg)) { // 以下練習正則(規)表示式(regular-expression)
 //						errorMsgs.add("商品描述: 只能是中、英文字母、數字和_ , 且長度必需在1到1000之間");
 //				}
-				System.out.println(itemProdDescription);
 				ItemVO itemVO = new ItemVO();
 
 				itemVO.setItemNo(itemNo);
@@ -242,7 +228,7 @@ public class ItemServlet extends HttpServlet {
 
 				/*************************** 2.開始修改資料 *****************************************/
 				ItemService itemSvc = new ItemService();
-				itemVO = itemSvc.updateItem(itemNo, kindNo, itemName, itemPrice, itemState, soldTime,launchedTime,
+				itemVO = itemSvc.updateItem(itemNo, kindNo, itemName, itemPrice, itemState, soldTime, launchedTime,
 						warrantyDate, itemProdDescription);
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("itemVO", itemVO); // 資料庫update成功後,正確的的empVO物件,存入req
@@ -274,8 +260,7 @@ public class ItemServlet extends HttpServlet {
 				String itemNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,40}$";
 				if (itemName == null || itemName.trim().length() == 0) {
 					errorMsgs.add("商品名稱: 請勿空白且且長度必需在2以上");
-				} 
-				else if (!itemName.trim().matches(itemNameReg)) { // 以下練習正則(規)表示式(regular-expression)
+				} else if (!itemName.trim().matches(itemNameReg)) { // 以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("商品名稱: 只能是中、英文字母、數字 , 且長度必需在2到40之間");
 				}
 
@@ -301,7 +286,7 @@ public class ItemServlet extends HttpServlet {
 				}
 				if (itemState > 1 || itemState < 0) {
 					errorMsgs.add("上架狀態為0或1");
-				}else if(itemState ==null) {
+				} else if (itemState == null) {
 					errorMsgs.add("必須設定商品狀態");
 				}
 
@@ -328,7 +313,7 @@ public class ItemServlet extends HttpServlet {
 //				String itemProdDescriptionReg = "^[(\\-,><\\)(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,1000}$";
 				if (itemProdDescription == null || itemProdDescription.trim().length() == 0) {
 					errorMsgs.add("商品描述: 請勿空白");
-				} 
+				}
 //				else if (!itemProdDescription.trim().matches(itemProdDescriptionReg)) { // 以下練習正則(規)表示式(regular-expression)
 //					errorMsgs.add("商品描述: 只能是中、英文字母、數字和_ , 且長度必需在1到1000之間");
 //				}
@@ -364,7 +349,6 @@ public class ItemServlet extends HttpServlet {
 					}
 				}
 
-				System.out.println("ItemServlet取得的listPic為 : " + listPic);
 				itemSvc.addItem2(kindNo, itemName, itemPrice, itemState, launchedTime, warrantyDate,
 						itemProdDescription, listPic);
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
@@ -415,20 +399,16 @@ public class ItemServlet extends HttpServlet {
 		if ("listItem_ByCompositeQuery".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			System.out.println("取得的ItemName為 : ");
-			System.out.println(req.getParameter("ItemName"));
-			System.out.println("-------------------");
 			try {
 				Map<String, String[]> map = req.getParameterMap();
-				System.out.println("從ITServlet來的:"+map);
 				ItemService itemSvc = new ItemService();
 				List<ItemVO> list = itemSvc.getAll(map);
-				
-				if(list.isEmpty()) {
+
+				if (list.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("/frontend/EShop.jsp");
 					failureView.forward(req, res);
 				}
-			
+
 				req.setAttribute("listItem_ByCompositeQuery", list);
 				RequestDispatcher successView = req.getRequestDispatcher("/frontend/listItem_ByCompositeQuery.jsp");
 				successView.forward(req, res);
@@ -437,24 +417,24 @@ public class ItemServlet extends HttpServlet {
 			}
 		}
 //---------------查看商品詳情--------------------------------		
-		if("getOneItemForView".equals(action)) {
+		if ("getOneItemForView".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			
+
 			try {
-				
+
 				Integer itemNo = new Integer(req.getParameter("itemNo"));
-				
+
 				ItemService itemSvc = new ItemService();
-				
+
 				ItemVO itemVO = itemSvc.getOneItem(itemNo);
-				
+
 				req.setAttribute("itemVO", itemVO);
 				String url = "/frontend/listOneItem.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
-				
-			}catch(NullPointerException NPe) {
+
+			} catch (NullPointerException NPe) {
 				System.out.println("沒取到啦");
 			}
 		}

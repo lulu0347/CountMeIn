@@ -25,22 +25,14 @@ public class ItemPicDAO implements ItemPicDAO_interface {
 		}
 	}
 
-	private static final String INSERT_STMT = 
-			"INSERT INTO ItemPic (ItemNo, ItemPic) VALUES (?, ?)";
-	private static final String GET_ALL_STMT = 
-			"SELECT itemPicNo, itemNo, itemPic FROM ItemPic ORDER BY itemPicNo";
-	private static final String GET_ONE_STMT = 
-			"SELECT itemPicNo, itemNo, itemPic FROM ItemPic WHERE itemPicNo = ?";
-	private static final String DELETE = 
-			"DELETE FROM ItemPic WHERE itempicno = ?";
-	private static final String UPDATE = 
-			"UPDATE ItemPic set itempicno = ?, itemno = ?, itempic = ? WHERE itempicno = ?";
-	private static final String GET_BYITEMNO_STMT =
-			"SELECT itemPicNo, itemNo, itemPic FROM ItemPic WHERE itemNo = ?";
-	private static final String GET_ITEMPICNO = 
-			"SELECT itemPic FROM ItemPic WHERE itemPicNo = ?";
-	private static final String GET_ITEMNO = 
-			"SELECT itemPic FROM ItemPic WHERE itemNo = ?";
+	private static final String INSERT_STMT = "INSERT INTO ItemPic (ItemNo, ItemPic) VALUES (?, ?)";
+	private static final String GET_ALL_STMT = "SELECT itemPicNo, itemNo, itemPic FROM ItemPic ORDER BY itemPicNo";
+	private static final String GET_ONE_STMT = "SELECT itemPicNo, itemNo, itemPic FROM ItemPic WHERE itemPicNo = ?";
+	private static final String DELETE = "DELETE FROM ItemPic WHERE itempicno = ?";
+	private static final String UPDATE = "UPDATE ItemPic set itempicno = ?, itemno = ?, itempic = ? WHERE itempicno = ?";
+	private static final String GET_BYITEMNO_STMT = "SELECT itemPicNo, itemNo, itemPic FROM ItemPic WHERE itemNo = ?";
+	private static final String GET_ITEMPICNO = "SELECT itemPic FROM ItemPic WHERE itemPicNo = ?";
+	private static final String GET_ITEMNO = "SELECT itemPic FROM ItemPic WHERE itemNo = ?";
 
 	@Override
 	public void addPic(ItemPicVO ItemPicVO) {
@@ -52,10 +44,10 @@ public class ItemPicDAO implements ItemPicDAO_interface {
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
-			
+
 			pstmt.setInt(1, ItemPicVO.getItemNo());
 			pstmt.setBytes(2, ItemPicVO.getItemPic());
-			
+
 			pstmt.executeUpdate();
 
 			// Handle any SQL errors
@@ -83,20 +75,15 @@ public class ItemPicDAO implements ItemPicDAO_interface {
 
 	@Override
 	public void insert2(ItemPicVO itemPicVO, Connection con) {
-	
+
 		PreparedStatement pstmt = null;
-		System.out.println("From ItemDAO : " + con);
 		try {
 			pstmt = con.prepareStatement(INSERT_STMT);
-			System.out.println("你走到了itemPicDAO line90了");
-			
-			
+
 			pstmt.setInt(1, itemPicVO.getItemNo());
-			System.out.println("測試 : " + itemPicVO.getItemNo());
-			pstmt.setBytes(2, itemPicVO.getItemPic());	
-			System.out.println("測試 : " + itemPicVO.getItemPic());
+			pstmt.setBytes(2, itemPicVO.getItemPic());
 			pstmt.executeUpdate();
-			
+
 		} catch (SQLException se) {
 			if (con != null) {
 				try {
@@ -105,12 +92,11 @@ public class ItemPicDAO implements ItemPicDAO_interface {
 					System.err.println("rolled back-由-pic");
 					con.rollback();
 				} catch (SQLException excep) {
-					throw new RuntimeException("rollback error occured. "
-							+ excep.getMessage());
+					throw new RuntimeException("rollback error occured. " + excep.getMessage());
 				}
 			}
 			throw new RuntimeException("A database error occured." + se.getMessage());
-		}finally {
+		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -119,11 +105,8 @@ public class ItemPicDAO implements ItemPicDAO_interface {
 				}
 			}
 		}
-		
-		
+
 	}
-
-
 
 	@Override
 	public void updatePic(ItemPicVO ItemPicVO) {
@@ -135,7 +118,7 @@ public class ItemPicDAO implements ItemPicDAO_interface {
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
-			
+
 			pstmt.setInt(1, ItemPicVO.getItemPicNo());
 			pstmt.setInt(2, ItemPicVO.getItemNo());
 			pstmt.setBytes(3, ItemPicVO.getItemPic());
@@ -204,41 +187,38 @@ public class ItemPicDAO implements ItemPicDAO_interface {
 
 	}
 
-	
-	
 	@Override
 	public ItemPicVO findByItemPicNo(Integer ItemPicNo) {
-		
+
 		ItemPicVO itemPicVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
-			
+
 			pstmt.setInt(1, ItemPicNo);
-			
+
 			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				itemPicVO = new ItemPicVO();
-				
+
 				itemPicVO.setItemPicNo(rs.getInt("itempicno"));
 				itemPicVO.setItemNo(rs.getInt("itemno"));
 				itemPicVO.setItemPic(rs.getBytes("itempic"));
-				
-			}
-			
 
-		}catch (SQLException se) {
+			}
+
+		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
-		}finally{
-			if(rs!=null) {
+		} finally {
+			if (rs != null) {
 				try {
 					rs.close();
-				}catch(Exception e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -255,9 +235,9 @@ public class ItemPicDAO implements ItemPicDAO_interface {
 				} catch (Exception e) {
 					e.printStackTrace(System.err);
 				}
-			}			
+			}
 		}
-			return itemPicVO;
+		return itemPicVO;
 	}
 
 	@Override
@@ -285,7 +265,7 @@ public class ItemPicDAO implements ItemPicDAO_interface {
 				itemPicVO.setItemNo(rs.getInt("itemno"));
 				itemPicVO.setItemPic(rs.getBytes("itempic"));
 				list.add(itemPicVO);
-				
+
 			}
 
 			// Handle any driver errors
@@ -317,101 +297,101 @@ public class ItemPicDAO implements ItemPicDAO_interface {
 		}
 		return list;
 	}
-	
+
 	@Override
 	public List<ItemPicVO> getByItemNo(Integer itemNo) {
-		
+
 		List<ItemPicVO> list = new ArrayList<ItemPicVO>();
 		ItemPicVO itemPicVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-	
+
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_BYITEMNO_STMT);
-		
+
 			pstmt.setInt(1, itemNo);
-			
+
 			rs = pstmt.executeQuery();
-		
-			while(rs.next()) {
+
+			while (rs.next()) {
 				itemPicVO = new ItemPicVO();
-			
+
 				itemPicVO.setItemPicNo(rs.getInt("itemPicNo"));
 				itemPicVO.setItemNo(rs.getInt("itemNo"));
 				itemPicVO.setItemPic(rs.getBytes("itemPic"));
 				list.add(itemPicVO);
 			}
-		}catch(SQLException se) {
+		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
-		}finally {
-			if(rs!=null) {
+		} finally {
+			if (rs != null) {
 				try {
 					rs.close();
-				}catch(SQLException se) {
-				se.printStackTrace(System.err);
-				}
-			}
-			if(pstmt!=null) {
-				try {
-					pstmt.close();
-				}catch(SQLException se) {
+				} catch (SQLException se) {
 					se.printStackTrace(System.err);
 				}
 			}
-			if(con != null) {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
 				try {
 					con.close();
-				}catch(Exception e) {
+				} catch (Exception e) {
 					e.printStackTrace(System.err);
 				}
 			}
 		}
-	
+
 		return list;
 	}
-	
-	public byte[] getItemPic(Integer itemPicNo){
-		
+
+	public byte[] getItemPic(Integer itemPicNo) {
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		byte[] itemPic = null;
-		
+
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ITEMPICNO);
-			
+
 			pstmt.setInt(1, itemPicNo);
-			
-			rs=pstmt.executeQuery();
-			
-			while(rs.next()) {
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
 				itemPic = rs.getBytes("itemPic");
 			}
-			
-		}catch(SQLException se) {
+
+		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
-		}finally {
-			if(rs!=null) {
+		} finally {
+			if (rs != null) {
 				try {
 					rs.close();
-				}catch(SQLException se) {
+				} catch (SQLException se) {
 					se.printStackTrace(System.err);
 				}
 			}
-			if(pstmt!=null) {
+			if (pstmt != null) {
 				try {
 					pstmt.close();
-				}catch(SQLException se) {
+				} catch (SQLException se) {
 					se.printStackTrace(System.err);
 				}
 			}
-			if(con != null) {
+			if (con != null) {
 				try {
 					con.close();
-				}catch(Exception e) {
+				} catch (Exception e) {
 					e.printStackTrace(System.err);
 				}
 			}
@@ -419,47 +399,47 @@ public class ItemPicDAO implements ItemPicDAO_interface {
 
 		return itemPic;
 	}
-	
-	public byte[] getItemPic2(Integer itemNo){
-		
+
+	public byte[] getItemPic2(Integer itemNo) {
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		byte[] itemPic = null;
-		
+
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ITEMNO);
-			
+
 			pstmt.setInt(1, itemNo);
-			
-			rs=pstmt.executeQuery();
-			
-			while(rs.next()) {
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
 				itemPic = rs.getBytes("itemPic");
 			}
-			
-		}catch(SQLException se) {
+
+		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
-		}finally {
-			if(rs!=null) {
+		} finally {
+			if (rs != null) {
 				try {
 					rs.close();
-				}catch(SQLException se) {
+				} catch (SQLException se) {
 					se.printStackTrace(System.err);
 				}
 			}
-			if(pstmt!=null) {
+			if (pstmt != null) {
 				try {
 					pstmt.close();
-				}catch(SQLException se) {
+				} catch (SQLException se) {
 					se.printStackTrace(System.err);
 				}
 			}
-			if(con != null) {
+			if (con != null) {
 				try {
 					con.close();
-				}catch(Exception e) {
+				} catch (Exception e) {
 					e.printStackTrace(System.err);
 				}
 			}
@@ -467,7 +447,7 @@ public class ItemPicDAO implements ItemPicDAO_interface {
 
 		return itemPic;
 	}
-	
+
 	public static byte[] getPictureByteArray(String path) throws IOException {
 		File file = new File(path);
 		FileInputStream fis = new FileInputStream(file);
@@ -482,5 +462,5 @@ public class ItemPicDAO implements ItemPicDAO_interface {
 
 		return baos.toByteArray();
 	}
-	
+
 }

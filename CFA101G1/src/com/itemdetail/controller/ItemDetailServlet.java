@@ -64,7 +64,6 @@ public class ItemDetailServlet extends HttpServlet {
 				Integer orderNo = null;
 				try {
 					orderNo = new Integer(req.getParameter("orderNo").trim());
-//					System.out.println(orderNo);
 				} catch (NumberFormatException ONe) {
 					errorMsgs.add("訂單編號請填數字.");
 				}
@@ -72,7 +71,6 @@ public class ItemDetailServlet extends HttpServlet {
 				Integer itemNo = null;
 				try {
 					itemNo = new Integer(req.getParameter("itemNo").trim());
-//					System.out.println(itemNo);
 				} catch (NumberFormatException INe) {
 					errorMsgs.add("商品編號請填數字.");
 				}
@@ -81,7 +79,6 @@ public class ItemDetailServlet extends HttpServlet {
 
 				try {
 					itemSales = new Integer(req.getParameter("itemSales").trim());
-//					System.out.println(itemSales);
 				} catch (NumberFormatException ISe) {
 					errorMsgs.add("訂單商品數量請輸入數字");
 				}
@@ -104,7 +101,6 @@ public class ItemDetailServlet extends HttpServlet {
 
 				ItemDetailService itemDetailSvc = new ItemDetailService();
 				itemDetailVO = itemDetailSvc.updateItemDetail(itemSales, orderNo, itemNo);
-
 				req.setAttribute("itemDetailVO", itemDetailVO);
 				String url = "/backend/itemDetail/listAll_ItemDetail.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);

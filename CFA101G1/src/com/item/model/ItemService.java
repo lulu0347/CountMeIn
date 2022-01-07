@@ -32,8 +32,6 @@ public class ItemService {
 	// -----------後台新增商品與照片---------------
 	public ItemVO addItem2(Integer kindNo, String itemName, Integer itemPrice, Integer itemState,
 			java.sql.Timestamp launchedTime, Double warrantyDate, String itemProdDescription, List<byte[]> list) {
-		System.out.println("ItemService所取得的kindNo為" + kindNo);
-		System.out.println("ItemService所取得的List為" + list);
 
 		ItemVO itemVO = new ItemVO();
 		itemVO.setKindNo(kindNo);

@@ -194,7 +194,6 @@ public class ItemOrderServlet extends HttpServlet {
 				Integer orderNo = null;
 				try {
 					orderNo = new Integer(req.getParameter("orderNo"));
-//				System.out.println("以訂單編號查詢單一訂單 編號為" + orderNo);
 				} catch (NumberFormatException ONe) {
 					errorMsgs.add("請輸入數字唷");
 				}
@@ -232,7 +231,6 @@ public class ItemOrderServlet extends HttpServlet {
 
 			try {
 				Integer orderNo = new Integer(req.getParameter("orderNo"));
-//				System.out.println(orderNo);
 				// 先用findByOrderNo方法撈出該筆訂單
 				ItemOrderService itemOrderSvc = new ItemOrderService();
 				ItemOrderVO itemOrderVO = itemOrderSvc.findByOrderNo(orderNo);

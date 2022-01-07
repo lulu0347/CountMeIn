@@ -32,13 +32,10 @@ public class ItemICServlet extends HttpServlet{
 		if ("viewMyCollection".equals(action)) {
 			
 			Integer memNo = new Integer(req.getParameter("memNo"));
-			System.out.println(memNo);
 			ItemICService itemICSvc = new ItemICService();
 			List<ItemICVO> list = new ArrayList<ItemICVO>();
 			list = itemICSvc.getCollectionByMemNo(memNo);
-			System.out.println("已取得list");
 			req.setAttribute("list", list);
-			System.out.println("Set  -  Success");
 			String url = "/frontend/listAllCollectionByMemNo.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);

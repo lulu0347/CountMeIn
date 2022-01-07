@@ -66,7 +66,6 @@ public class ItemPicServlet extends HttpServlet {
 			try {
 
 				Integer itemNo = new Integer(req.getParameter("itemNo"));
-//				System.out.println("line55取得的itemNo為" + itemNo);
 
 				Part part = req.getPart("itemPic");
 
@@ -78,7 +77,6 @@ public class ItemPicServlet extends HttpServlet {
 
 					byte[] itemPic = new byte[is.available()];
 					is.read(itemPic);
-//					System.out.println("line67取得的itempic為" + itemPic);
 					is.close();
 					itemPicVO.setItemPic(itemPic);
 				}
@@ -108,8 +106,6 @@ public class ItemPicServlet extends HttpServlet {
 
 				req.setAttribute("itemPicVO", itemPicVO);
 
-//				System.out.println("from line 117" + itemPicVO);
-
 				String url = "/backend/itemPic/update_item_photo_input.jsp";
 				RequestDispatcher sucessView = req.getRequestDispatcher(url);
 				sucessView.forward(req, res);
@@ -125,16 +121,13 @@ public class ItemPicServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			Integer itemPicNo = new Integer(req.getParameter("itemPicNo"));
-			System.out.println(itemPicNo);
 			ItemPicService itemPicSvc = new ItemPicService();
 			ItemPicVO itemPicVO = itemPicSvc.findByItemPicNo(itemPicNo);
-			
 
 			try {
 
 				Integer itemNo = new Integer(req.getParameter("itemNo"));
-				System.out.println(itemNo);
-				
+
 				byte[] itemPic = null;
 				Part part = req.getPart("itemPic");
 
@@ -190,7 +183,6 @@ public class ItemPicServlet extends HttpServlet {
 
 			} catch (Exception e) {
 
-				System.out.println("刪除失敗");
 				e.printStackTrace();
 			}
 
@@ -243,7 +235,6 @@ public class ItemPicServlet extends HttpServlet {
 				Integer itemNo = null;
 				try {
 					itemNo = new Integer(req.getParameter("itemNo"));
-//				System.out.println("line229所取得的商品編號為  " + itemNo);
 				} catch (NumberFormatException INe) {
 					errorMsgs.add("商品編號請輸入數字");
 				}
@@ -254,7 +245,6 @@ public class ItemPicServlet extends HttpServlet {
 				List<ItemPicVO> list = new ArrayList<ItemPicVO>();
 
 				list = itemPicSvc.findByItemNo(itemNo);
-//				System.out.println("line240所取得的商品編號為  " + itemNo);
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("/backend/item.jsp");
 					failureView.forward(req, res);

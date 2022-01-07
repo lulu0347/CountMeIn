@@ -115,36 +115,19 @@ public class ItemDAO implements ItemDAO_interface {
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if (rs.next()) {
 				next_itemNo = rs.getString(1);
-				System.out.println("自增主鍵值= " + next_itemNo +"(剛新增成功的商品編號)");
 			} else {
-				System.out.println("未取得自增主鍵值");
 			}
 			rs.close();
-			System.out.println("ItemDAO取得的值from ItemService" + itemVO.getKindNo());
-			System.out.println("ItemDAO取得的值from ItemService" + itemVO.getItemName());
-			System.out.println("ItemDAO取得的值from ItemService" + itemVO.getItemPrice());
-			System.out.println("ItemDAO取得的值from ItemService" + itemVO.getItemState());
-			System.out.println("ItemDAO取得的值from ItemService" + itemVO.getLaunchedTime());
-			System.out.println("ItemDAO取得的值from ItemService" + itemVO.getWarrantyDate());
-			System.out.println("ItemDAO取得的值from ItemService" + itemVO.getItemProdDescription());
-			System.out.println("測試List是否還在 : " + list );
 			ItemPicDAO dao = new ItemPicDAO();
-			System.out.println("list.size()-A="+list.size());
 			for (int i = 0; i < list.size(); i++) {
 				ItemPicVO itemPicVO = new ItemPicVO();
 				itemPicVO.setItemNo(new Integer(next_itemNo)) ;
 				itemPicVO.setItemPic(list.get(i)) ;
-				System.out.println("ItemDAO跑迴圈取得的nextItemNo值為" + new Integer(next_itemNo));
-				System.out.println("ItemDAO跑迴圈取得的List.get值為" + list.get(i));
-				System.out.println(con);
 				dao.insert2(itemPicVO,con);
 			}
 			
 			con.commit();
 			con.setAutoCommit(true);
-			System.out.println("list.size()-B="+list.size());
-			System.out.println("新增商品編號" + next_itemNo + "時,共有照片" + list.size()
-					+ "張同時被新增");
 		}catch (SQLException se) {
 			if (con != null) {
 				try {
@@ -263,9 +246,6 @@ public class ItemDAO implements ItemDAO_interface {
 
 			con.commit();
 			con.setAutoCommit(true);
-			System.out.println("form itemDAO line160 :刪除商品編號" + ItemNo + "時共有商品照片" + udpateCount_ItemPic + "張被刪除");
-			System.out.println("form itemDAO line161 :刪除商品編號" + ItemNo + "時共有商品明細" + udpateCount_ItemDetail + "筆被刪除");
-			System.out.println("form itemDAO line162 :刪除商品編號" + ItemNo + "時共有商品收藏" + udpateCount_ItemCollection + "個被刪除");
 			
 			// Handle any driver errors
 		} catch (SQLException se) {
@@ -747,7 +727,6 @@ public class ItemDAO implements ItemDAO_interface {
 					+"ORDER BY itemNo";
 			
 			pstmt = con.prepareStatement(finalSQL);
-			System.out.println("測試finalSQL(by ItemDAO) = "+finalSQL);
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
